@@ -1,0 +1,22 @@
+<h3>My Shopping Bag <span class="pull-right">Order Total: $123.00</span></h3>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Sub-total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="tea in teas">
+      <td>
+        <h3>{{ tea.name }}</h3>
+        <img src="{{ tea.imageUrl }}" alt="tea image"/>
+        <p><strong>Caffeine Scale:</strong> {{ tea.caffeineScale }}</p>
+        <p><strong>Ingredients:</strong> {{ tea.ingredients }}</p>
+        <p><strong>Rating:</strong> {{ tea.rating }}</p>
+      </td>
+    </tr>
+  </tbody>
+</table>

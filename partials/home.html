@@ -1,12 +1,10 @@
-<h1>Welcome to Tea Shopping Cart</h1>
-
 <p>Search by category:
   <select ng-model="category">
     <option ng-repeat="category in categories">{{ category }}</option>
   </select>
   Search by name:
   <input type="text" ng-model="name">
-  <button type="button" class="btn btn-warning pull-right">Checkout | Bag: Empty!</button>
+  <a href="/#/checkout" class="btn btn-warning pull-right">Checkout | Bag: Empty!</a>
 </p>
 
 <table class="table table-bordered">
