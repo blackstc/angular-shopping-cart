@@ -14,8 +14,15 @@ app.controller("HomeController", ["$scope", "$http", function($scope, $http) {
         }
       }
     }
-    console.log($scope.categories);
   });
+
+  $scope.priceSort = function(tea) {
+    if ($scope.price === "Low to High") {
+      return tea.price;
+    } else {
+      return -tea.price;
+    }
+  };
 
 
 }]);

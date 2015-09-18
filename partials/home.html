@@ -5,7 +5,7 @@
     <option ng-repeat="category in categories">{{ category }}</option>
   </select>
   Search by name:
-  <input type="text">
+  <input type="text" ng-model="name">
   <button type="button" class="btn btn-warning pull-right">Checkout | Bag: Empty!</button>
 </p>
 
@@ -14,15 +14,16 @@
     <tr>
       <th>Tea</th>
       <th>Infomation <span class="pull-right">Sort By Price:
-        <select>
-          <option>option</option>
+        <select ng-model="price">
+          <option>Low to High</option>
+          <option>High to Low</option>
         </select>
       </span>
     </th>
   </tr>
 </thead>
 <tbody>
-  <tr ng-repeat="tea in teas">
+  <tr ng-repeat="tea in teas | filter:name | filter:category | orderBy:priceSort">
     <td>
       <img ng-src="{{ tea.imageUrl }}" alt="tea image"/>
     </td>
