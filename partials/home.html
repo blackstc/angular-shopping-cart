@@ -1,59 +1,86 @@
-<p>Search by category:
-  <select ng-model="category">
-    <option ng-repeat="category in categories">{{ category }}</option>
-  </select>
-  Search by name:
-  <input type="text" ng-model="name">
-  <a href="/#/checkout" class="btn btn-warning pull-right">Checkout | Bag: Empty!</a>
-</p>
+<div ng-hide="checkout">
 
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Tea</th>
-      <th>Infomation <span class="pull-right">Sort By Price:
-        <select ng-model="price">
-          <option>Low to High</option>
-          <option>High to Low</option>
-        </select>
-      </span>
-    </th>
-  </tr>
-</thead>
-<tbody>
-  <tr ng-repeat="tea in teas | filter:name | filter:category | orderBy:priceSort">
-    <td>
-      <img ng-src="{{ tea.imageUrl }}" alt="tea image"/>
-    </td>
-    <td>
-      <h3>{{ tea.name }}
-        <span class="pull-right">
-        Quantity:
-        <select ng-model="quantity">
-          <option ng-repeat="qty in [2,3,4,5,6,7,8,9,10]">{{ qty }}</option>
-        </select>
-        <button type="button" name="button" class="btn btn-warning" ng-click="addTeaBags()">Add To Bag</button>
+  <p>Search by category:
+    <select ng-model="category">
+      <option ng-repeat="category in categories">{{ category }}</option>
+    </select>
+    Search by name:
+    <input type="text" ng-model="name">
+    <button type="button" ng-click="checkout = true" class="btn btn-warning pull-right">Checkout | Bag: {{ checkoutQty }}</button>
+  </p>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Tea</th>
+        <th>Infomation <span class="pull-right">Sort By Price:
+          <select ng-model="price">
+            <option>Low to High</option>
+            <option>High to Low</option>
+          </select>
         </span>
-      </h3>
-      <p>
-        <strong>Price:</strong> {{ tea.price/100 | currency }}
-      </p>
-      <p>
-        <strong>Caffeine Scale:</strong> {{ tea.caffeineScale }}
-      </p>
-      <p>
-        <strong>Rating:</strong> {{ tea.rating }}
-      </p>
-      <p>
-        <strong>In Stock?:</strong> {{ tea.inStock | yesNo }}
-      </p>
-      <p>
-        <strong>Categories:</strong>
-        <ul>
-          <li ng-repeat="category in tea.categories">{{ category }}</li>
-        </ul>
-      </p>
-    </td>
-  </tr>
-</tbody>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="tea in teas | filter:name | filter:category | orderBy:priceSort">
+      <td>
+        <img ng-src="{{ tea.imageUrl }}" alt="tea image"/>
+      </td>
+      <td>
+        <h3>{{ tea.name }}
+          <span class="pull-right">
+            Quantity:
+            <select ng-model="quantity">
+              <option ng-repeat="qty in [2,3,4,5,6,7,8,9,10]">{{ qty }}</option>
+            </select>
+            <button type="button" name="button" class="btn btn-warning" ng-click="addTeaBags()">Add To Bag</button>
+          </span>
+        </h3>
+        <p>
+          <strong>Price:</strong> {{ tea.price/100 | currency }}
+        </p>
+        <p>
+          <strong>Caffeine Scale:</strong> {{ tea.caffeineScale }}
+        </p>
+        <p>
+          <strong>Rating:</strong> {{ tea.rating }}
+        </p>
+        <p>
+          <strong>In Stock?:</strong> {{ tea.inStock | yesNo }}
+        </p>
+        <p>
+          <strong>Categories:</strong>
+          <ul>
+            <li ng-repeat="category in tea.categories">{{ category }}</li>
+          </ul>
+        </p>
+      </td>
+    </tr>
+  </tbody>
 </table>
+</div>
+
+<div ng-show="checkout">
+  <h3>My Shopping Bag <span class="pull-right">Order Total: $123.00</span></h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Sub-total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in checkoutBag">
+        <td>
+          <h3>{{ item.name }}</h3>
+          <img src="{{ item.imageUrl }}" alt="tea image"/>
+          <p><strong>Caffeine Scale:</strong> {{ item.caffeineScale }}</p>
+          <p><strong>Ingredients:</strong> {{ item.ingredients }}</p>
+          <p><strong>Rating:</strong> {{ item.rating }}</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
