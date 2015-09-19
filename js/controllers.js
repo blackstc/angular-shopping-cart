@@ -1,6 +1,7 @@
 app.controller("HomeController", ["$scope", "$http", function($scope, $http) {
   $scope.categories = [];
   $scope.checkoutBag = [];
+  $scope.qty = true;
   $scope.checkout = false;
 
   //get all teas from JSON
@@ -45,6 +46,30 @@ app.controller("HomeController", ["$scope", "$http", function($scope, $http) {
     } else {
       $scope.checkoutQty = "Empty!";
     }
+  };
+
+  $scope.calcOrderTotal = function() {
+    $scope.checkout = true;
+    $scope.total = 0;
+
+    for (var i = 0; i < $scope.checkoutBag.length; i++) {
+      $scope.total += $scope.checkoutBag[i].quantity * $scope.checkoutBag[i].price/100;
+    }
+  };
+
+  $scope.edit = function() {
+    $scope.qty = false;
+  };
+
+  $scope.save = function() {
+    this.item.quantity = this.newQuantity;
+    $scope.calcOrderTotal();
+    $scope.qty = true;
+  };
+
+  $scope.remove = function() {
+    var index = $scope.checkoutBag.indexOf(this.item);
+    $scope.checkoutBag.splice(index, 1);
   };
 
   updateCart();
